@@ -7,6 +7,8 @@
 #' @param xlim x-axis limits
 #' @param ylim y-axis limits
 #' @param rlim radius limits for plot
+#' @param start_angle angle to start
+#' @param clockwise If true, go clockwise
 #'
 #' @return 2-column matrix of (x,y) locations in circle plot
 #'
@@ -14,7 +16,7 @@
 
 xy2circ <-
     function(x, y=NULL, xlim=NULL, ylim=NULL, rlim=c(1,2),
-             start_angle=0)
+             start_angle=pi, clockwise=TRUE)
 {
     if(is.matrix(x)) {
         stopifnot(ncol(x) == 2)
@@ -27,8 +29,10 @@ xy2circ <-
     if(is.null(xlim)) xlim <- range(x, na.rm=TRUE)
     if(is.null(ylim)) ylim <- range(y, na.rm=TRUE)
 
-    # convert x's to angle in radians
-    xnew <- (x - xlim[1])/(xlim[2]-xlim[1])*2*pi + start_angle
+    # convert x's to (0,1)
+    xnew <- (x - xlim[1])/(xlim[2]-xlim[1])
+    if(clockwise) xnew <- 1-xnew
+    xnew <- xnew*2*pi + start_angle
 
     # convert y's radius
     ynew <- (y - ylim[1])/(ylim[2]-ylim[1])*(rlim[2]-rlim[1]) + rlim[1]
