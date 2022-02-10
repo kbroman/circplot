@@ -11,9 +11,9 @@ Depends:
     R (>= 3.1.0)
 Imports:
     graphics,
-    stats
+    stats,
+    qtl2
 Suggests:
-    qtl2,
     knitr,
     rmarkdown,
     testthat,
