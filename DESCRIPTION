@@ -1,0 +1,30 @@
+Package: circplot
+Version: 0.1-1
+Date: 2020-09-17
+Title: Circular Plots
+Description: Tools to make circular plots.
+Author: Karl W Broman [aut, cre] (<https://orcid.org/0000-0002-4914-6671>)
+Maintainer: Karl W Broman <broman@wisc.edu>
+Authors@R: c(person("Karl W", "Broman", role=c("aut", "cre"),
+             email="broman@wisc.edu", comment=c(ORCID = "0000-0002-4914-6671")))
+Depends:
+    R (>= 3.1.0)
+Imports:
+    graphics,
+    stats
+Suggests:
+    qtl2,
+    knitr,
+    rmarkdown,
+    testthat,
+    devtools,
+    roxygen2
+License: GPL-3
+URL: https://github.com/kbroman/circplot
+BugReports: https://github.com/kbroman/circplot/issues
+VignetteBuilder: knitr
+LazyData: true
+Encoding: UTF-8
+ByteCompile: true
+RoxygenNote: 7.1.2
+Roxygen: list(markdown=TRUE)
