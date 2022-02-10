@@ -21,6 +21,7 @@
 #' @return No return value
 #'
 #' @importFrom qtl2 subset_scan1 chr_lengths align_scan1_map
+#' @importFrom graphics par text lines
 #' @export
 
 plot_scan1_circ <-
