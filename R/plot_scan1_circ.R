@@ -17,6 +17,11 @@
 #' @param ylim y-axis limits
 #' @param chr_labels Whether to add chromosome labels
 #' @param ... Additional graphics parameters
+#'
+#' @return No return value
+#'
+#' @importFrom qtl2 subset_scan1 chr_lengths align_scan1_map
+#' @export
 
 plot_scan1_circ <-
     function(x, map, lodcolumn=1, chr=NULL, gap=NULL, rlim=c(5,6),
@@ -61,8 +66,9 @@ plot_scan1_circ <-
         stop("lodcolumn [", lodcolumn, "] out of range (should be in 1, ..., ", ncol(x), ")")
     lod <- unclass(x)[,lodcolumn]
 
-    xpos <- qtl2:::map_to_xpos(map, gap)
-    chrbound <- qtl2:::map_to_boundaries(map, gap)
+    xpos <- map_to_xpos(map, gap)
+    chrbound <- map_to_boundaries(map, gap)
+    indexes <- map_to_index(map)
 
     if(is.null(xlim)) xlim <- c(min(xpos), max(xpos)+gap)
     if(is.null(ylim)) ylim <- c(0, max(lod, na.rm=TRUE))
@@ -77,17 +83,12 @@ plot_scan1_circ <-
 
     plot(pts, type="n", xlim=xl, ylim=xl, xaxs="i", yaxs="i", xaxt="n", yaxt="n", xlab="", ylab="")
 
-    nmar <- sapply(map, length)
-    start <- c(1, 1+cumsum(nmar))
-    end <- start[-1]-1
-    start <- start[-length(start)]
-
     for(chr in seq_along(map)) {
-        lines(pts0[start[chr]:end[chr], ,drop=FALSE], lwd=1, col="black")
-        lines(pts[start[chr]:end[chr],,drop=FALSE], lwd=2, col="slateblue")
+        lines(pts0[indexes[[chr]], ,drop=FALSE], lwd=1, col="black")
+        lines(pts[indexes[[chr]],,drop=FALSE], lwd=2, col="slateblue")
 
         if(chr_labels) {
-            label_pos <- mean(range(xpos[start[chr]:end[chr]]))
+            label_pos <- mean(range(xpos[indexes[[chr]]]))
             label_pos <- xy2circ(label_pos, -max(lod, na.rm=TRUE)/5, xlim=xlim, ylim = -ylim,
                                  rlim=c(rlim[1], rlim[1]-(rlim[2]-rlim[1])), start_angle=start_angle,
                                  clockwise=clockwise)
