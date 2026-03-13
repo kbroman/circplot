@@ -16,6 +16,7 @@ plot_scan1_circ(
   xlim = NULL,
   ylim = NULL,
   chr_labels = TRUE,
+  lwd = 2,
   ...
 )
 }
@@ -44,6 +45,8 @@ strings.}
 \item{ylim}{y-axis limits}
 
 \item{chr_labels}{Whether to add chromosome labels}
+
+\item{lwd}{line width for LOD curves}
 
 \item{...}{Additional graphics parameters}
 }

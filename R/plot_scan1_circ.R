@@ -16,6 +16,7 @@
 #' @param xlim x-axis limits
 #' @param ylim y-axis limits
 #' @param chr_labels Whether to add chromosome labels
+#' @param lwd line width for LOD curves
 #' @param ... Additional graphics parameters
 #'
 #' @return No return value
@@ -27,7 +28,7 @@
 plot_scan1_circ <-
     function(x, map, lodcolumn=1, chr=NULL, gap=NULL, rlim=c(5,6),
              start_angle=pi, clockwise=TRUE, xlim=NULL, ylim=NULL,
-             chr_labels=TRUE, ...)
+             chr_labels=TRUE, lwd=2, ...)
 {
 
     if(is.null(map)) stop("map is NULL")
@@ -85,8 +86,8 @@ plot_scan1_circ <-
     plot(pts, type="n", xlim=xl, ylim=xl, xaxs="i", yaxs="i", xaxt="n", yaxt="n", xlab="", ylab="")
 
     for(chr in seq_along(map)) {
-        lines(pts0[indexes[[chr]], ,drop=FALSE], lwd=1, col="black")
-        lines(pts[indexes[[chr]],,drop=FALSE], lwd=2, col="slateblue")
+        lines(pts0[indexes[[chr]], ,drop=FALSE], col="black", lwd=1)
+        lines(pts[indexes[[chr]],,drop=FALSE], col="slateblue", lwd=lwd)
 
         if(chr_labels) {
             label_pos <- mean(range(xpos[indexes[[chr]]]))

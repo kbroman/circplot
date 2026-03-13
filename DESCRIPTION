@@ -1,6 +1,6 @@
 Package: circplot
-Version: 0.1-1
-Date: 2020-09-17
+Version: 0.1-2
+Date: 2026-03-13
 Title: Circular Plots
 Description: Tools to make circular plots.
 Author: Karl W Broman [aut, cre] (<https://orcid.org/0000-0002-4914-6671>)
@@ -25,5 +25,5 @@ VignetteBuilder: knitr
 LazyData: true
 Encoding: UTF-8
 ByteCompile: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.3
 Roxygen: list(markdown=TRUE)
