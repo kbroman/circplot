@@ -4,5 +4,5 @@
 
 R package to facilitate making plots as circles.
 
-Created this function `plot_scan1_circ()` for plotting a genome scan
+Created this for the function `plot_scan1_circ()`, for plotting a genome scan
 as a circle, and for making fun of circle plots.
