@@ -9,6 +9,6 @@ doc:
 test:
 	R -e 'devtools::test()'
 
-# build READM.md
+# build README.md
 README.md: README.Rmd
 	R -e "knitr::knit('$<')"
