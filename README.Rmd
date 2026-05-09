@@ -20,7 +20,7 @@ Install circplot from
 install.packages("circplot", repos="https://kbroman.r-universe.dev")
 ```
 
-Install from github using the [remotes](https://remotes.r-lib.org)
+Or install it from github using the [remotes](https://remotes.r-lib.org)
 package:
 
 ```{r install_github, eval=FALSE}
