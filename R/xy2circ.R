@@ -13,8 +13,8 @@
 #' @return 2-column data frame of (x,y) locations in circle plot
 #'
 #' @examples
-#' x <- seq(0, 2*pi, len=251)
-#' y <- sin(x*9)
+#' x <- seq(0, 18*pi, len=251)
+#' y <- sin(x)
 #' rlim <- c(4, 7)
 #' xl <- c(-rlim[2], rlim[2])*1.1
 #' yl <- range(y)
@@ -22,9 +22,9 @@
 #' plot(0, 0, type="n", xaxs="i", yaxs="i", xlim=xl, ylim=xl,
 #'      xaxt="n", yaxt="n", xlab="", ylab="")
 #' pos <- xy2circ(x, y, rlim=rlim)
-#' lines(pos$x, pos$y, lwd=2, col="slateblue")
+#' lines(pos, lwd=2, col="slateblue")
 #' circ <- xy2circ(x, rep(0, length(x)), rlim=rlim, ylim=yl)
-#' lines(circ$x, circ$y, lwd=2)
+#' lines(circ, lwd=2)
 #'
 #' @export
 
