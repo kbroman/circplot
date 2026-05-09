@@ -34,7 +34,7 @@ remotes::install_github("kbroman/circplot")
 
 ### Usage
 
-The function `xy2circ()` converts x/y coordiates to circular
+The function `xy2circ()` converts (x,y) coordiates to circular
 coordinates. It is used internally in the function
 `plot_scan1_circ()`.
 
