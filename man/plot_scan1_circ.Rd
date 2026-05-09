@@ -17,6 +17,9 @@ plot_scan1_circ(
   ylim = NULL,
   chr_labels = TRUE,
   lwd = 2,
+  col = "slateblue",
+  lty = 1,
+  add = FALSE,
   ...
 )
 }
@@ -48,6 +51,12 @@ strings.}
 
 \item{lwd}{line width for LOD curves}
 
+\item{col}{color for LOD curves}
+
+\item{lty}{line type for LOD curves}
+
+\item{add}{Add curves to previous plot (need care about matching \code{rlim} and \code{ylim})}
+
 \item{...}{Additional graphics parameters}
 }
 \value{
@@ -55,4 +64,23 @@ No return value
 }
 \description{
 Plot LOD curves for a genome scan as a circle
+}
+\examples{
+library(qtl2)
+iron <- read_cross2(system.file("extdata", "iron.zip", package="qtl2"))
+map <- insert_pseudomarkers(iron$gmap, step=1)
+probs <- calc_genoprob(iron, map, error_prob=0.002)
+pheno <- iron$pheno
+covar <- match(iron$covar$sex, c("f", "m")) # make numeric
+names(covar) <- rownames(iron$covar)
+Xcovar <- get_x_covar(iron)
+
+out <- scan1(probs, pheno, addcovar=covar, Xcovar=Xcovar)
+kinship <- calc_kinship(probs, "loco")
+out_lmm <- scan1(probs, pheno, kinship, covar, Xcovar)
+
+max_lod <- max(c(maxlod(out), maxlod(out_lmm)))
+plot_scan1_circ(out, map, ylim=c(0, max_lod), rlim=c(5, 7))
+plot_scan1_circ(out_lmm, map, col="violetred", lty=2, add=TRUE,
+                ylim=c(0, max_lod), rlim=c(5, 7))
 }

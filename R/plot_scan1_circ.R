@@ -17,6 +17,9 @@
 #' @param ylim y-axis limits
 #' @param chr_labels Whether to add chromosome labels
 #' @param lwd line width for LOD curves
+#' @param col color for LOD curves
+#' @param lty line type for LOD curves
+#' @param add Add curves to previous plot (need care about matching `rlim` and `ylim`)
 #' @param ... Additional graphics parameters
 #'
 #' @return No return value
@@ -24,11 +27,30 @@
 #' @importFrom qtl2 subset_scan1 chr_lengths align_scan1_map
 #' @importFrom graphics par text lines
 #' @export
+#'
+#' @examples
+#' library(qtl2)
+#' iron <- read_cross2(system.file("extdata", "iron.zip", package="qtl2"))
+#' map <- insert_pseudomarkers(iron$gmap, step=1)
+#' probs <- calc_genoprob(iron, map, error_prob=0.002)
+#' pheno <- iron$pheno
+#' covar <- match(iron$covar$sex, c("f", "m")) # make numeric
+#' names(covar) <- rownames(iron$covar)
+#' Xcovar <- get_x_covar(iron)
+#'
+#' out <- scan1(probs, pheno, addcovar=covar, Xcovar=Xcovar)
+#' kinship <- calc_kinship(probs, "loco")
+#' out_lmm <- scan1(probs, pheno, kinship, covar, Xcovar)
+#'
+#' max_lod <- max(c(maxlod(out), maxlod(out_lmm)))
+#' plot_scan1_circ(out, map, ylim=c(0, max_lod), rlim=c(5, 7))
+#' plot_scan1_circ(out_lmm, map, col="violetred", lty=2, add=TRUE,
+#'                 ylim=c(0, max_lod), rlim=c(5, 7))
 
 plot_scan1_circ <-
     function(x, map, lodcolumn=1, chr=NULL, gap=NULL, rlim=c(5,6),
              start_angle=pi, clockwise=TRUE, xlim=NULL, ylim=NULL,
-             chr_labels=TRUE, lwd=2, ...)
+             chr_labels=TRUE, lwd=2, col="slateblue", lty=1, add=FALSE, ...)
 {
 
     if(is.null(map)) stop("map is NULL")
@@ -80,24 +102,35 @@ plot_scan1_circ <-
     pts0 <- xy2circ(xpos, rep(0, length(lod)), xlim=xlim, ylim=ylim,
                     rlim=rlim, start_angle=start_angle, clockwise=clockwise)
 
-    par(pty="s", bty="n")
-    xl <- c(-rlim[2], rlim[2])*1.05
+    plot_scan1_circ_internal <-
+        function(pts, type="p", xlim=NULL, ylim=NULL, pty="s", bty="n",
+                 xaxt="n", yaxt="n", xaxs="i", yaxs="i", xlab="", ylab="", lty=1,
+                 lwd=2, col="slateblue", col_axis="black", lwd_axis=1, rlim=c(5,6),
+                 add=FALSE, ...)
+    {
+        par(pty=pty, bty=bty)
+        xl <- c(-rlim[2], rlim[2])*1.05
 
-    plot(pts, type="n", xlim=xl, ylim=xl, xaxs="i", yaxs="i", xaxt="n", yaxt="n", xlab="", ylab="")
+#        cat("add:", add)
+        if(!add) plot(pts, type="n", xlim=xl, ylim=xl, xaxs="i", yaxs="i", xaxt="n", yaxt="n", xlab="", ylab="")
 
-    for(chr in seq_along(map)) {
-        lines(pts0[indexes[[chr]], ,drop=FALSE], col="black", lwd=1)
-        lines(pts[indexes[[chr]],,drop=FALSE], col="slateblue", lwd=lwd)
+        for(chr in seq_along(map)) {
+            if(!add) lines(pts0[indexes[[chr]], ,drop=FALSE], col=col_axis, lwd=lwd_axis)
+            lines(pts[indexes[[chr]],,drop=FALSE], col=col, lwd=lwd, lty=lty)
 
-        if(chr_labels) {
-            label_pos <- mean(range(xpos[indexes[[chr]]]))
-            label_pos <- xy2circ(label_pos, -max(lod, na.rm=TRUE)/5, xlim=xlim, ylim = -ylim,
-                                 rlim=c(rlim[1], rlim[1]-(rlim[2]-rlim[1])), start_angle=start_angle,
-                                 clockwise=clockwise)
+            if(!add & chr_labels) {
+                label_pos <- mean(range(xpos[indexes[[chr]]]))
+                label_pos <- xy2circ(label_pos, -ylim[2]/5, xlim=xlim, ylim = -ylim,
+                                     rlim=c(rlim[1], rlim[1]-(rlim[2]-rlim[1])), start_angle=start_angle,
+                                     clockwise=clockwise)
+            }
 
-            text(label_pos[1], label_pos[2], names(map)[chr])
+            if(!add) text(label_pos[1], label_pos[2], names(map)[chr])
         }
+        invisible()
     }
 
-    invisible()
+    plot_scan1_circ_internal(pts, lwd=lwd, col=col, rlim=rlim, add=add, xlim=xlim, ylim=ylim,
+                             xaxt="n", yaxt="n", xaxs="i", yaxs="i", xlab="", ylab="",
+                             lty=lty, ...)
 }
