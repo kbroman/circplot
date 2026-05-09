@@ -3,7 +3,9 @@
 - Add arguments `col` and `add` to `plot_scan1_circ()`, and allow
   better handling of `...` with an internal function.
 
-- Add example of use of `plot_scan1_circ()`
+- Add examples for `plot_scan1_circ()` and `xy2circ()`
+
+- Make output of `xy2circ()` a data frame
 
 
 ## circplot 0.1-2 (2026-03-13)

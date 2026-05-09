@@ -10,7 +10,21 @@
 #' @param start_angle angle to start
 #' @param clockwise If true, go clockwise
 #'
-#' @return 2-column matrix of (x,y) locations in circle plot
+#' @return 2-column data frame of (x,y) locations in circle plot
+#'
+#' @examples
+#' x <- seq(0, 2*pi, len=251)
+#' y <- sin(x*9)
+#' rlim <- c(4, 7)
+#' xl <- c(-rlim[2], rlim[2])*1.1
+#' yl <- range(y)
+#' par(bty="n", pty="s")
+#' plot(0, 0, type="n", xaxs="i", yaxs="i", xlim=xl, ylim=xl,
+#'      xaxt="n", yaxt="n", xlab="", ylab="")
+#' pos <- xy2circ(x, y, rlim=rlim)
+#' lines(pos$x, pos$y, lwd=2, col="slateblue")
+#' circ <- xy2circ(x, rep(0, length(x)), rlim=rlim, ylim=yl)
+#' lines(circ$x, circ$y, lwd=2)
 #'
 #' @export
 
@@ -38,5 +52,5 @@ xy2circ <-
     ynew <- (y - ylim[1])/(ylim[2]-ylim[1])*(rlim[2]-rlim[1]) + rlim[1]
 
     # convert angle, radius to x,y
-    cbind(x=ynew*cos(xnew), y=ynew*sin(xnew))
+    data.frame(x=ynew*cos(xnew), y=ynew*sin(xnew))
 }
