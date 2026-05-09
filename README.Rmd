@@ -16,16 +16,14 @@ as a circle, and for making fun of circle plots.
 Install circplot from
 [R-universe](https://kbroman.r-universe.dev/circplot):
 
-
-``` r
+```{r install_runiverse, eval=FALSE}
 install.packages("circplot", repos="https://kbroman.r-universe.dev")
 ```
 
 Install from github using the [remotes](https://remotes.r-lib.org)
 package:
 
-
-``` r
+```{r install_github, eval=FALSE}
 install.packages("remotes")
 remotes::install_github("kbroman/circplot")
 ```
@@ -38,8 +36,7 @@ The function `xy2circ()` converts x/y coordiates to circular
 coordinates. It is used internally in the function
 `plot_scan1_circ()`.
 
-
-``` r
+```{r plot_scan1_circ}
 library(circplot)
 library(qtl)
 suppressMessages(library(qtl2))
@@ -53,8 +50,6 @@ out <- scan1(pr, hyper$pheno)
 par(mar=rep(0,4))
 plot_scan1_circ(out, map, lwd=3, rlim=c(5,7))
 ```
-
-![plot of chunk plot_scan1_circ](figure/plot_scan1_circ-1.png)
 
 ---
 

@@ -3,3 +3,5 @@
 Makefile$
 ^LICENSE\.md$
 ^\.github$
+^README\.Rmd$
+figure/
