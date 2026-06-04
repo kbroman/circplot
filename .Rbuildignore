@@ -5,3 +5,4 @@ Makefile$
 ^\.github$
 ^README\.Rmd$
 figure/
+.cache
