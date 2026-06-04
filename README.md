@@ -58,6 +58,41 @@ plot_scan1_circ(out, map, lwd=3, rlim=c(5,7))
 
 ![plot of chunk plot_scan1_circ](figure/plot_scan1_circ-1.png)
 
+You can also use `plot_scan1_circ()` to plot SNP association scans.
+Use `altcol` to have chromosomes plotted in alternating colors.
+
+
+``` r
+file <- paste0("https://raw.githubusercontent.com/rqtl/",
+               "qtl2data/main/DO_Gatti2014/do.zip")
+do <- read_cross2(file)
+
+pr <- calc_genoprob(do, err=0.002, cores=0)
+k <- calc_kinship(pr, "loco", cores=0)
+
+variantdb <- "~/Data/CCdb/cc_variants.sqlite"
+query_variants <- create_variant_query_func(variantdb)
+
+out <- scan1spnps(pr, do$pmap, do$pheno[,1], k,
+                  query_func=query_variants, cores=0,
+                  Xcovar=get_x_covar(do))
+```
+
+
+
+
+``` r
+lod <- out$lod
+map <- qtl2:::snpinfo_to_map(out$snpinfo)
+
+par(mar=rep(0,4))
+plot_scan1_circ(lod, map, rlim=c(4,7),
+                col="darkslateblue", altcol="green4",
+                type="p", cex=0.4)
+```
+
+![plot of chunk plot_snp_scan](figure/plot_snp_scan-1.png)
+
 ---
 
 ### License
