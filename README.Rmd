@@ -1,4 +1,4 @@
-## circplot
+## circplot <a href="https://github.com/kbroman/circplot"><img src="figure/circplot_logo.png" align="right" height="138" alt="circplot logo"/></a>
 
 [![R-CMD-check](https://github.com/kbroman/circplot/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kbroman/circplot/actions/workflows/R-CMD-check.yaml)
 [![r-universe badge](https://kbroman.r-universe.dev/circplot/badges/version)](https://kbroman.r-universe.dev/circplot)

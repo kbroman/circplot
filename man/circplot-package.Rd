@@ -6,6 +6,8 @@
 \alias{circplot-package}
 \title{circplot: Circular Plots}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Tools to make circular plots.
 }
 \seealso{
