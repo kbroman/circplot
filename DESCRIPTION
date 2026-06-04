@@ -1,6 +1,6 @@
 Package: circplot
-Version: 0.1-3
-Date: 2026-05-09
+Version: 0.1-4
+Date: 2026-06-04
 Title: Circular Plots
 Description: Tools to make circular plots.
 Author: Karl W Broman [aut, cre] (<https://orcid.org/0000-0002-4914-6671>)

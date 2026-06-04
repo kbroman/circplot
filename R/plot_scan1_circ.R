@@ -103,10 +103,10 @@ plot_scan1_circ <-
                     rlim=rlim, start_angle=start_angle, clockwise=clockwise)
 
     plot_scan1_circ_internal <-
-        function(pts, type="p", xlim=NULL, ylim=NULL, pty="s", bty="n",
+        function(pts, type="l", xlim=NULL, ylim=NULL, pty="s", bty="n",
                  xaxt="n", yaxt="n", xaxs="i", yaxs="i", xlab="", ylab="", lty=1,
-                 lwd=2, col="slateblue", col_axis="black", lwd_axis=1, rlim=c(5,6),
-                 add=FALSE, ...)
+                 lwd=2, col="slateblue", altcol="slateblue", col_axis="black", lwd_axis=1, rlim=c(5,6),
+                 add=FALSE, pch=16, ...)
     {
         par(pty=pty, bty=bty)
         xl <- c(-rlim[2], rlim[2])*1.05
@@ -116,7 +116,12 @@ plot_scan1_circ <-
 
         for(chr in seq_along(map)) {
             if(!add) lines(pts0[indexes[[chr]], ,drop=FALSE], col=col_axis, lwd=lwd_axis)
-            lines(pts[indexes[[chr]],,drop=FALSE], col=col, lwd=lwd, lty=lty)
+            thiscol <- ifelse(chr %% 2, col, altcol)
+            if(type=="p") {
+                points(pts[indexes[[chr]],,drop=FALSE], col=thiscol, lwd=lwd, lty=lty, type=type, pch=pch, ...)
+            } else {
+                lines(pts[indexes[[chr]],,drop=FALSE], col=thiscol, lwd=lwd, lty=lty, type=type, ...)
+            }
 
             if(!add & chr_labels) {
                 label_pos <- mean(range(xpos[indexes[[chr]]]))
