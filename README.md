@@ -18,7 +18,8 @@ Install circplot from
 
 
 ``` r
-install.packages("circplot", repos="https://kbroman.r-universe.dev")
+install.packages("circplot", repos=c("https://kbroman.r-universe.dev",
+                                     "https://cloud.r-project.org"))
 ```
 
 Or install it from github using the [remotes](https://remotes.r-lib.org)
@@ -27,7 +28,8 @@ package:
 
 ``` r
 install.packages("remotes")
-remotes::install_github("kbroman/circplot")
+library(remotes)
+install_github("kbroman/circplot")
 ```
 
 ---
